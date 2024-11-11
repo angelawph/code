@@ -22,23 +22,45 @@ const prisma = new PrismaClient();
 // Main landing page
 app.get('/', async function(req, res) {
 
-    // Try-Catch for any errors
-    try {
-        // Get all blog posts
-        const blogs = await prisma.post.findMany({
-                orderBy: [
-                  {
-                    id: 'desc'
-                  }
-                ]
-        });
+  // Try-Catch for any errors
+  try {
+      // Get all blog posts
+      const blogs = await prisma.post.findMany({
+              orderBy: [
+                {
+                  id: 'desc'
+                }
+              ]
+      });
 
-        // Render the homepage with all the blog posts
-        await res.render('pages/home', { blogs: blogs });
-      } catch (error) {
-        res.render('pages/home');
-        console.log(error);
-      } 
+      // Render the homepage with all the blog posts
+      await res.render('pages/home', { blogs: blogs });
+    } catch (error) {
+      res.render('pages/home');
+      console.log(error);
+    } 
+});
+
+// Main landing page
+app.get('/test', async function(req, res) {
+
+  // Try-Catch for any errors
+  try {
+      // Get all blog posts
+      const blogs = await prisma.post.findMany({
+              orderBy: [
+                {
+                  id: 'desc'
+                }
+              ]
+      });
+
+      // Render the homepage with all the blog posts
+      await res.render('pages/test', { blogs: blogs });
+    } catch (error) {
+      res.render('pages/test');
+      console.log(error);
+    } 
 });
 
 // About page
@@ -98,3 +120,7 @@ app.post("/delete/:id", async (req, res) => {
 
 // Tells the app which port to run on
 app.listen(8080);
+
+app.get('/demo', function(req, res) {
+  res.render('pages/demo');
+});
