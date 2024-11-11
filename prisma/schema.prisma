@@ -15,7 +15,27 @@ datasource db {
 
 // Post model represents individual blog posts
 model Post {
-  id        Int       @id @default(autoincrement())
+  id      Int    @id @default(autoincrement())
+  title   String
+  content String
+  votes   Int    @default(0)
+}
+
+model Event {
+  id        String     @id @default(cuid())
   title     String
-  content   String
+  code      String
+  questions Question[] @relation("QuestionRefEvent")
+  created   DateTime   @default(now())
+}
+
+model Question {
+  id       Int      @id @default(autoincrement())
+  event    Event    @relation("QuestionRefEvent", fields: [eventId], references: [id])
+  eventId  String
+  content  String
+  votes    Int      @default(0)
+  created  DateTime @default(now())
+  answered Boolean  @default(false)
+  offline  Boolean  @default(false)
 }
